@@ -1,1 +1,1 @@
-# ranger
+# Scripts used for Ranger Solutions
