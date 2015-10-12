@@ -9,8 +9,8 @@
 
 Cls
 $next = 5
-
 $today = (get-date)
+$userdomain = 'insertyourdomain.com'
 
 #get current domain password policy
 $policy=Get-ADDefaultDomainPasswordPolicy
@@ -39,9 +39,9 @@ foreach ($user in $users_to_be_notified) {
 	$expireDate = $passlastset.AddDays($days)
 	$days_remaining = ($expireDate - $today).days + 1
 	$resetby = $expireDate.tostring('MM/dd/yyyy')
-	$to = $username + '@oneprop.com'
-	$from = 'support@rangersolutions.com'
-	$smtpserver = 'relay.appriver.com'
+	$to = $username + $userdomain
+	$from = 'noreply@abc.com'
+	$smtpserver = 'smtpserver'
 	$smtpport = 2525
 	$subject = "Reminder - Password is expiring in $days_remaining day(s)."
 	$body = "<html>
@@ -51,14 +51,14 @@ foreach ($user in $users_to_be_notified) {
 					<BR><BR>
 					Your password will expire in <span style='font-size:20px; color:#ff0000; font-weight:bold;'>$days_remaining day(s)</span>. Please change it by <span style='font-size:20px; color:#ff0000; font-weight:bold;'>$resetby</span>.<BR><BR>
 					<b>Users in Dallas office:</b> You can reset your password by pressing <b>Ctrl + Alt + Del</b> and selecting <b>Change password</b>.<BR>
-			<b>Remote Users:</b> All remote users can reset their password by going to the <a href='http://pwm.oneprop.com/pm'>ONEprop password portal</a>. If you have never used the portal before, you must first enroll your account by following the instructions attached. The password portal is <i>ONLY</i> available to remote users.<BR>
-					<span style='font-style:italic; font-weight:bold; font-size:0.8em;'>Note: </span><span style='font-style:italic; font-size:0.8em;'>This password is not associated with your @oneprop.com email. After resetting this password, your email password will remain the same. The password this email is referring to is your domain/network, ShoreTel, and Egnyte password.</span><BR><BR>
-					If you have any issues, please submit a ticket using the Ranger agent icon in the system tray or send an email to <a href='mailto:support@rangersolutions.com'>support@rangersolutions.com</a>.<BR><BR>
+					<b>Remote Users:</b> All remote users can reset their password by going to the <a href='http://passwordportal'>password portal</a>. If you have never used the portal before, you must first enroll your account by following the instructions attached. The password portal is <i>ONLY</i> available to remote users.<BR>
+					<span style='font-style:italic; font-weight:bold; font-size:0.8em;'>Note: </span><span style='font-style:italic; font-size:0.8em;'>This password is not associated with your $userdomain email. After resetting this password, your email password will remain the same. The password this email is referring to is your domain/network, ShoreTel, and Egnyte password.</span><BR><BR>
+					If you have any issues, please submit a ticket using the agent icon in the system tray or send an email to <a href='mailto:support@abc.com'>support@abc.com</a>.<BR><BR>
 			You will receive this notification daily until your password is changed.<BR><BR>
 					Thank You!<BR>
-					Ranger Business Solutions<BR>
-					support@rangersolutions.com<BR>
-					214.329.1349
+					Your IT Support Team<BR>
+					support@abc.com<BR>
+					214.555.1349
 					</body>
 			</html>"
 	
@@ -74,8 +74,8 @@ foreach ($user in $users_to_be_notified) {
 }
 
 #sends txt files to administrator
-$to = 'report@rangersolutions.com'
-$subject = "ONEprop Password Notifications"
+$to = 'report@abc.com'
+$subject = "Password Notifications"
 $body = "<html>
 		<head></head>
 			<body>
